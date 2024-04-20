@@ -6,7 +6,7 @@ const livroSchema = new mongoose.Schema({
     publishing: { type: String },
     price: { type: Number },
     pages: { type: Number }
-});
+}, { versionKey: false });
 
 const livro = mongoose.model("livros", livroSchema);
 
