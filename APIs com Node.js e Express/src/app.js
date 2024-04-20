@@ -3,7 +3,6 @@ import connectionDB from "./config/dbConnect.js";
 
 const app = express();
 
-<<<<<<< HEAD
 const connection = await connectionDB();
 
 connection.on("error", (error) => {
@@ -13,27 +12,9 @@ connection.on("error", (error) => {
 connection.once("open", () => {
     console.log("Conexão com o banco de dados feita com sucesso!");
 });
-=======
+
 app.use(express.json());
 
-const livros = [
-    {
-        id: 1,
-        title: "Senhor dos Aneis"
-    },
-
-    {
-        id: 2,
-        title: "O Hobbit"
-    }
-];
-
-function buscaLivro(id){
-    return livros.findIndex(livros => {
-        return livros.id === Number(id);
-    })
-}
->>>>>>> 27e9ee599ff2b8522c4590466d54a518ee7184d2
 
 app.get("/", (req, res) => {
     res.status(200).send('Hello World');
