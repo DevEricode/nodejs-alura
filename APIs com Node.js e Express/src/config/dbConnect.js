@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 
 
-
 async function connectionDB () {
-    mongoose.connect("mongodb+srv://admin:admin123@cluster0.zk7iuy3.mongodb.net/livraria?retryWrites=true&w=majority");
+    console.log(process.env.URI)
+    mongoose.connect(process.env.URI);
 
     return mongoose.connection;
 };

@@ -1,5 +1,6 @@
 import express from "express";
 import connectionDB from "./config/dbConnect.js";
+import livro from "./models/Livros.js";
 
 const app = express();
 
@@ -20,7 +21,10 @@ app.get("/", (req, res) => {
     res.status(200).send('Hello World');
 });
 
-app.get("/livros", (req, res) => {
+app.get("/livros", async (req, res) => {
+
+    const livros = await livro.find({});
+
     res.status(200).json(livros);
 });
 
