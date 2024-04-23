@@ -11,7 +11,7 @@ class LivroController {
             res.status(200).json(livros);
 
         } catch (error) {
-            es.status(500).json({ message: `${error.message} - falha na requisição.` });
+            res.status(500).json({ message: `${error.message} - falha na requisição.` });
         }
     };
 
@@ -23,7 +23,7 @@ class LivroController {
             res.status(200).json({ message: "Livro encontrado com sucesso!", livro: livroEncontrado});
 
         } catch (error) {
-            es.status(500).json({ message: `${error.message} - falha na requisição.` });
+            res.status(500).json({ message: `${error.message} - falha na requisição.` });
         }
     };
 
@@ -51,7 +51,7 @@ class LivroController {
             res.status(200).json({ message: "Livro atualizado com sucesso!" });
 
         } catch (error) {
-            es.status(500).json({ message: `${error.message} - falha na atualização do livro.` });
+            res.status(500).json({ message: `${error.message} - falha na atualização do livro.` });
         }
     };
 
@@ -63,8 +63,23 @@ class LivroController {
             res.status(204).json({ message: "Livro deletado com sucesso!" });
 
         } catch (error) {
-            es.status(500).json({ message: `${error.message} - falha na requisição para deletar o livro.` });
+            res.status(500).json({ message: `${error.message} - falha na requisição para deletar o livro.` });
         }
+    };
+
+    static async getLivroByPublishing(req, res) {
+
+        const publishing = req.query.publishing;
+
+        try {
+            
+            const buscarLivro = await livro.find({ publishing: publishing });
+            res.status(200).json({ livro: buscarLivro });
+
+        } catch (error) {
+            res.status(500).json({ message: `${error.message} - falha na requisição de busca!` });
+        }
+
     };
 
 };
