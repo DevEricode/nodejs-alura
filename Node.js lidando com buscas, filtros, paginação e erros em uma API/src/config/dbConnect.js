@@ -1,11 +1,7 @@
-import mongoose from "mongoose";
+import mongoose from "mongoose"
 
+mongoose.connect(process.env.PASS_DB);
 
-async function connectionDB () {
-    console.log(process.env.URI)
-    mongoose.connect(process.env.URI);
+let db = mongoose.connection;
 
-    return mongoose.connection;
-};
-
-export default connectionDB;
+export default db;
