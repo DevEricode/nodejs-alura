@@ -1,4 +1,4 @@
-import NaoEncontrado from '../Error/NaoEncontrado.js';
+import NaoEncontrado from '../error/NaoEncontrado.js';
 import { livros } from '../models/index.js';
 
 class LivroController {
