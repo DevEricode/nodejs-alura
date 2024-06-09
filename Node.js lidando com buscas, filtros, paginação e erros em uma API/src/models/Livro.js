@@ -24,6 +24,10 @@ const livroSchema = new mongoose.Schema(
 				message: "O número de pagínas fornecido deve estar entre 10 e 5000. Valor fornecido: {VALUE}."
 			}
 		  },
+		  preco: {
+			type: Number,
+			required: [true, "O preço do livro é obrigatório!"]
+		  }
 	},
 );
 
