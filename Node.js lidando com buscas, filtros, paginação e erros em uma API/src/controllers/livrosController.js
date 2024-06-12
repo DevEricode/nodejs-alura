@@ -20,8 +20,6 @@ class LivroController {
 			const {id} = req.params;
 
 			const livroResultados = await livros.findById(id)
-				.populate('autor', 'nome')
-				.exec();
 
 				if(livroResultados !== null) {
 					res.status(200).send(livroResultados);
@@ -87,8 +85,6 @@ class LivroController {
 
 			if (busca !== null) {
 			  const livrosResultado = livros
-				.find(busca)
-				.populate("autor");
 	  
 			  req.resultado = livrosResultado;
 	  
