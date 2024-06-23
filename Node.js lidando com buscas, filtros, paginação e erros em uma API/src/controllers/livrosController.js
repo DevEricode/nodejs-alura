@@ -1,14 +1,19 @@
 import NaoEncontrado from '../error/NaoEncontrado.js';
+<<<<<<< HEAD
 import { autores, livros } from '../models/index.js';
+=======
+import { livros, autores } from '../models/index.js';
+>>>>>>> 1d87e751fda07962289b86147a3a5e0e7417b951
 
 class LivroController {
 	static listarLivros = async (req, res, next) => {
 		try {
-			const livrosResultado = await livros.find()
-				.populate('autor')
-				.exec();
 
-			res.status(200).json(livrosResultado);
+			const buscaLivros = livros.find();
+			req.resultado = buscaLivros;
+
+			next();
+
 		} catch (erro) {
 			next(erro);
 		}
@@ -19,8 +24,6 @@ class LivroController {
 			const {id} = req.params;
 
 			const livroResultados = await livros.findById(id)
-				.populate('autor', 'nome')
-				.exec();
 
 				if(livroResultados !== null) {
 					res.status(200).send(livroResultados);
@@ -84,6 +87,7 @@ class LivroController {
 		try {
 			const busca = await processaBusca(req.query);
 
+<<<<<<< HEAD
 			if(busca !== null) {
 				const livrosResultado = await livros
 				.find(busca)
@@ -92,6 +96,16 @@ class LivroController {
 				res.status(200).send(livrosResultado);
 			} else {
 				res.status(200).send([]);
+=======
+			if (busca !== null) {
+			  const livrosResultado = livros
+	  
+			  req.resultado = livrosResultado;
+	  
+			  next();
+			} else {
+			  res.status(200).send([]);
+>>>>>>> 1d87e751fda07962289b86147a3a5e0e7417b951
 			}
 
 
@@ -126,5 +140,30 @@ async function processaBusca(parametro) {
 	return busca;
 	
 };
+
+async function processaBusca(parametros) {
+	const { editora, titulo, minPaginas, maxPaginas, nomeAutor } = parametros;
+
+	let busca = {};
+
+	if (editora) busca.editora = editora;
+	if (titulo) busca.titulo = { $regex: titulo, $options: "i" };
+
+	if (minPaginas || maxPaginas) busca.numeroPaginas = {};
+	if (minPaginas) busca.numeroPaginas.$gte = minPaginas;
+	if (maxPaginas) busca.numeroPaginas.$lte = maxPaginas;
+
+	if (nomeAutor) {
+		const autor = await autores.findOne({ nome: nomeAutor });
+
+		if (autor !== null) {
+		busca.autor = autor._id;
+		} else {
+		busca = null;
+		}
+	}
+
+	return busca;
+}
 
 export default LivroController;
