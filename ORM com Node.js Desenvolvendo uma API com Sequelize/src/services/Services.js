@@ -23,6 +23,11 @@ class Services {
                 id: id
             }
         });
+        
+        if(listaDeRegistrosAtualizados[0] === 0) {
+            return false;
+        };
+        return true;
     };
 
     async excluiRegistro(id) {

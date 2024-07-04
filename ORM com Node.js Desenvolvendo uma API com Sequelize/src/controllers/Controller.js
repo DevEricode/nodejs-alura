@@ -39,7 +39,7 @@ class Controller {
             const foiAtualizado =  await this.entidadeService.atualizaRegistro(dadosAtualizados, Number(id));
             if(!foiAtualizado) {
                 return res.status(400).json({mensagem: 'Registro não foi atualizado.' });
-            }
+            };
             return res.status().json({ mensagem: 'Atualizado com sucesso.' });
         } catch (erro) {
             //erro
@@ -47,7 +47,7 @@ class Controller {
     };
 
     async exclui(req, res) {
-        const id = req.params;
+        const { id } = req.params;
         try {
             await this.entidadeService.excluiRegistro(Number(id));
             res.status(200).json({ mensagem: `${id} foi deletado!` });
