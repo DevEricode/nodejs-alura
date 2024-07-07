@@ -27,4 +27,11 @@
     createdAt: new Date(),
     updatedAt: new Date(),
   },
+  {
+    estudante_id: 7,
+    curso_id: 3,
+    status: 'matriculado',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  }
 ];
