@@ -17,15 +17,43 @@ module.exports = (sequelize, DataTypes) => {
   }
   Pessoa.init({
     nome: DataTypes.STRING,
-    email: DataTypes.STRING,
-    cpf: DataTypes.STRING,
+    email: { 
+      type: DataTypes.STRING,
+      validate: {
+        isEmail: {
+          args: true, 
+          msg: 'Formato do email inválido!'
+        }
+      } 
+
+    },
+    cpf: {
+      type: DataTypes.STRING,
+      validate: {
+        is: {
+          args: /^\d{3}\.\d{3}\.\d{3}-\d{2}$/,
+          msg: 'Formato do CPF inválido!'
+        }
+
+      }
+    },
     ativo: DataTypes.BOOLEAN,
     role: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Pessoa',
     tableName: 'pessoas',
-    paranoid: true
+    paranoid: true,
+    defaultScope: {
+      where: {
+        ativo: true,
+      }
+    },
+    scopes: {
+      todosOsRegistros: {
+        where: {}
+      }
+    }
   });
   return Pessoa;
 };
